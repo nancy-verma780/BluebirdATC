@@ -1,0 +1,13 @@
+/* Hide the unclickable primary sidebar title ("bluebird") above the nav tree. */
+.md-nav--primary > .md-nav__title {
+  display: none;
+}
+
+/* Material's generic copy button is unreliable on mkdocs-jupyter markdown code fences.
+   Notebook code cells already render their own clipboard control, so hide the Material one
+   within notebook pages to avoid showing a broken icon. */
+.jupyter-wrapper .md-code__button[data-md-type="copy"],
+.jupyter-wrapper .md-code__nav,
+.jupyter-wrapper .md-clipboard {
+  display: none !important;
+}

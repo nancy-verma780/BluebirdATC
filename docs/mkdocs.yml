@@ -1,0 +1,91 @@
+site_name: bluebird
+site_url: https://project-bluebird.github.io/bluebird-atc/
+repo_url: https://github.com/project-bluebird/BluebirdATC
+repo_name: project-bluebird/BluebirdATC
+docs_dir: src
+site_dir: ../site
+dev_addr: 127.0.0.1:8010
+extra_css:
+  - stylesheets/nav.css
+
+theme:
+  name: material
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  features:
+    - toc.integrate
+    - content.code.copy
+    - content.tabs.link
+    - content.action.edit
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+  - mkdocs-jupyter:
+      include:
+        - "*.ipynb"
+      include_source: true
+  - monorepo
+  - mkdocstrings:
+       handlers:
+        python:
+          options:
+            docstring_style: numpy
+            show_source: true
+
+validation:
+  nav:
+    omitted_files: ignore
+    not_found: ignore
+
+nav:
+  - Home:
+      - Project overview: ./#project-overview
+      - Package documentation: ./#package-documentation
+      - Getting started: ./#getting-started
+      - Building the docs: ./#building-the-docs
+      - Running tests: ./#running-tests
+      - References: ./#references
+
+  - ATC Introduction and Glossary: atc-introduction-and-glossary.md
+
+  - bluebird-dt: "!include ../bluebird-dt/mkdocs.yml"
+
+  - bluebird-api: "!include ../bluebird-api/mkdocs.yml"
+
+  - bluebird-gymnasium: "!include ../bluebird-gymnasium/mkdocs.yml"
+
+  - bluebird-hmi: "!include ../bluebird-hmi/mkdocs.yml"
+
+  - Examples:
+      - bluebird-dt:
+          - Simulation example: examples/bluebird-dt/Intro-Part-1.ipynb
+          - Simulation example: examples/bluebird-dt/Intro-Part-2.ipynb
+          - Simulation example: examples/bluebird-dt/Intro-Part-3.ipynb
+          - Simulation example: examples/bluebird-dt/Intro-Part-4.ipynb
+          - Simulation example: examples/bluebird-dt/NonPythonAgents.ipynb
+          - Radar visualisation: examples/bluebird-dt/render/radar.ipynb
+      - bluebird-gymnasium:
+          - Agent demo: examples/bluebird-gymnasium/agent_demo.ipynb
+          - Radar actions display demo: examples/bluebird-gymnasium/radar_actions_display_demo.ipynb
+          - Radar scales demo: examples/bluebird-gymnasium/radar_scales_demo.ipynb
+          - Simple demo: examples/bluebird-gymnasium/simple_demo.ipynb
+
+  - How to change these docs:
+      - Intro: mkdocs-guide/#intro
+      - Serve the docs locally: mkdocs-guide/#serve-the-docs-locally
+      - Build the docs for production: mkdocs-guide/#build-the-docs-for-production
+      - File hierarchy: mkdocs-guide/#file-hierarchy
+      - Example edit-serve-build workflow: mkdocs-guide/#example-edit-serve-build-workflow
+
+  - How to contribute: how-to-contribute.md

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "$script_dir/.." && pwd)"
+
+export NO_MKDOCS_2_WARNING=1
+unset VIRTUAL_ENV
+
+cd "$repo_root/docs"
+uv run python ../scripts/sync_docs_notebooks.py
+exec uv run mkdocs build -f mkdocs.yml "$@"
