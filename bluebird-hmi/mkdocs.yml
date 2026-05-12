@@ -1,0 +1,12 @@
+site_name: bluebird-hmi
+
+nav:
+  - Using the pre-built HMI: ./#using-the-pre-built-hmi
+  - Developer Guide:
+      - Overview: ./#developer-guide
+      - Installing dependencies: ./#installing-dependencies
+      - Running locally: ./#running-locally
+      - Building for production: ./#building-for-production
+      - Running tests and checks: ./#running-tests-and-checks
+      - Source README: ./#source-readme
+  - Source code reference: source.md
