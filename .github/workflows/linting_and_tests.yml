@@ -1,5 +1,5 @@
 ---
-name: BluebirdDT linting and tests
+name: BluebirdATC linting and tests
 
 on: 
   pull_request:
