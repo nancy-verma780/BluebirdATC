@@ -1,0 +1,4 @@
+fix,lat,lon,visible
+TESTFIX0,51.8,1.1,Y
+TESTFIX1,53.3,-0.4,Y
+TESTFIX2,54.4,0.9,N

@@ -1,0 +1,3 @@
+datetime,callsign,event_type,event_subtype,fl_value,hdg_value,spd_value,ssr_code,ssr_state,fix,hdg_fix_value,hold_fix,rnn_fix,sector
+1970-01-01T09:01:30.000,AIR02,incomm,incomm,,,,,,,,,,SPRINGFIELD
+1970-01-01T09:03:16.000,AIR03,incomm,incomm,,,,,,,,,,SPRINGFIELD

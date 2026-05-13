@@ -1,0 +1,26 @@
+{
+    "C3": {
+        "fixes": ["TROMB", "CAKES", "SCIFI", "STEPP", "JIMMI", "NATOR", "SMUDJ", "CAMPS"],
+        "visible": false
+    },
+    "R2": {
+      "fixes": ["SCOTT", "TARRA", "SIMPS", "FIYFE", "CHEEZ", "MANLY"],
+      "visible": false
+    },
+    "W1": {
+      "fixes": ["BERTY", "SPOUT", "SIMPS", "JIMMI", "LEXIE", "LEGGO"],
+      "visible": false
+    },
+    "A1": {
+      "fixes": ["OTTER", "GARRY", "BALDI", "AGNES", "SLUFF", "FIYFE", "NATOR", "TABSY", "WINDY", "MILLA"],
+      "visible": false
+    },
+    "P9": {
+      "fixes": ["BOWNE", "TROMB"],
+      "visible": false
+    },
+    "F3": {
+      "fixes": ["SIMPS", "SLUFF", "BOWNE"],
+      "visible": false
+    }
+}

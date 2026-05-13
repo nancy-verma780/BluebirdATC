@@ -1,0 +1,2080 @@
+{
+  "mats_routes": [
+    {
+      "route": [
+        "SCOTT",
+        "TARRA",
+        "SIMPS",
+        "FIYFE",
+        "CHEEZ",
+        "MANLY"
+      ],
+      "intent_codes": [
+        "E1"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "SCOTT",
+        "TARRA",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "SCOTT",
+        "TARRA",
+        "SIMPS",
+        "NATOR",
+        "WISKY",
+        "SMUDJ",
+        "CAMPS"
+      ],
+      "intent_codes": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        110,
+        130,
+        150,
+        170,
+        190
+      ]
+    },
+    {
+      "route": [
+        "SCOTT",
+        "TARRA",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "RE",
+        "RM",
+        "RH"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270
+      ],
+      "XFL": [
+        130
+      ]
+    },
+    {
+      "route": [
+        "CAKES",
+        "SCIFI",
+        "STEPP",
+        "JIMMI",
+        "NATOR",
+        "WISKY",
+        "SMUDJ",
+        "CAMPS"
+      ],
+      "intent_codes": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "CAKES",
+        "SCIFI",
+        "STEPP",
+        "SLUFF",
+        "AGNES",
+        "GARRY",
+        "OTTER"
+      ],
+      "intent_codes": [
+        "N4"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "CAKES",
+        "SCIFI",
+        "STEPP",
+        "SLUFF",
+        "AGNES",
+        "GARRY",
+        "ZZTOP"
+      ],
+      "intent_codes": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "CAKES",
+        "SCIFI",
+        "STEPP",
+        "JIMMI",
+        "NATOR",
+        "INBRU",
+        "EGRR"
+      ],
+      "intent_codes": [
+        "RR"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        70,
+        80,
+        90
+      ]
+    },
+    {
+      "route": [
+        "CAKES",
+        "SCIFI",
+        "STEPP",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "RE",
+        "RM",
+        "RH"
+      ],
+      "NFL": [
+        150,
+        170,
+        190,
+        210,
+        230,
+        250
+      ],
+      "XFL": [
+        130
+      ]
+    },
+    {
+      "route": [
+        "BERTY",
+        "SPOUT",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "BERTY",
+        "SPOUT",
+        "SIMPS",
+        "FIYFE",
+        "CHEEZ",
+        "MANLY"
+      ],
+      "intent_codes": [
+        "E1"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "BERTY",
+        "SPOUT",
+        "SIMPS",
+        "NATOR",
+        "WISKY",
+        "SMUDJ",
+        "CAMPS"
+      ],
+      "intent_codes": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "BERTY",
+        "SPOUT",
+        "SIMPS",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "BERTY",
+        "SPOUT",
+        "SIMPS",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "BERTY",
+        "SPOUT",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "RE",
+        "RM",
+        "RH"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        130
+      ]
+    },
+    {
+      "route": [
+        "CAMPS",
+        "SMUDJ",
+        "WISKY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "CAMPS",
+        "SMUDJ",
+        "WISKY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "CAMPS",
+        "SMUDJ",
+        "WISKY",
+        "NATOR",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "OTTER"
+      ],
+      "intent_codes": [
+        "N4"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "CAMPS",
+        "SMUDJ",
+        "WISKY",
+        "NATOR",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "ZZTOP"
+      ],
+      "intent_codes": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "CAMPS",
+        "SMUDJ",
+        "WISKY",
+        "NATOR",
+        "INBRU",
+        "EGRR"
+      ],
+      "intent_codes": [
+        "RR"
+      ],
+      "NFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        70,
+        80,
+        90
+      ]
+    },
+    {
+      "route": [
+        "MILLA",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "SLUFF",
+        "BOWNE",
+        "TERMI"
+      ],
+      "intent_codes": [
+        "NE"
+      ],
+      "NFL": [
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "MILLA",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "OTTER"
+      ],
+      "intent_codes": [
+        "N4"
+      ],
+      "NFL": [
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "MILLA",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "ZZTOP"
+      ],
+      "intent_codes": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "NFL": [
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "MILLA",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "MILLA",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "MILLA",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "INBRU",
+        "EGRR"
+      ],
+      "intent_codes": [
+        "RR"
+      ],
+      "NFL": [
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ],
+      "XFL": [
+        70,
+        80,
+        90
+      ]
+    },
+    {
+      "route": [
+        "TERMI",
+        "BOWNE",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "NFL": [
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        80,
+        100,
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "TERMI",
+        "BOWNE",
+        "SIMPS",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "TERMI",
+        "BOWNE",
+        "SIMPS",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "TERMI",
+        "BOWNE",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "RE",
+        "RM",
+        "RH"
+      ],
+      "NFL": [
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ],
+      "XFL": [
+        130
+      ]
+    },
+    {
+      "route": [
+        "EGRR",
+        "SLUFF",
+        "SIMPS",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        60
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRR",
+        "SLUFF",
+        "SIMPS",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        60
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRR",
+        "SLUFF",
+        "SIMPS",
+        "JIMMI",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "NFL": [
+        60
+      ],
+      "XFL": [
+        170
+      ]
+    },
+    {
+      "route": [
+        "EGRR",
+        "FIYFE",
+        "NATOR",
+        "WISKY",
+        "SMUDJ",
+        "CAMPS"
+      ],
+      "intent_codes": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "NFL": [
+        60
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRR",
+        "SLUFF",
+        "SIMPS",
+        "LEXIE",
+        "LEGGO"
+      ],
+      "intent_codes": [
+        "RE",
+        "RM",
+        "RH"
+      ],
+      "NFL": [
+        60
+      ],
+      "XFL": [
+        130
+      ]
+    },
+    {
+      "route": [
+        "EGRE",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "SLUFF",
+        "BOWNE",
+        "TERMI"
+      ],
+      "intent_codes": [
+        "NE"
+      ],
+      "NFL": [
+        120
+      ],
+      "XFL": [
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRE",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "OTTER"
+      ],
+      "intent_codes": [
+        "N4"
+      ],
+      "NFL": [
+        120
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRE",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "ZZTOP"
+      ],
+      "intent_codes": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "NFL": [
+        120
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRE",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        120
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRE",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        120
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRM",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "SLUFF",
+        "BOWNE",
+        "TERMI"
+      ],
+      "intent_codes": [
+        "NE"
+      ],
+      "NFL": [
+        110
+      ],
+      "XFL": [
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRM",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "OTTER"
+      ],
+      "intent_codes": [
+        "N4"
+      ],
+      "NFL": [
+        110
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRM",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "ZZTOP"
+      ],
+      "intent_codes": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "NFL": [
+        110
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRM",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        110
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRM",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        110
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRH",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "SLUFF",
+        "BOWNE",
+        "TERMI"
+      ],
+      "intent_codes": [
+        "NE"
+      ],
+      "NFL": [
+        100
+      ],
+      "XFL": [
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRH",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "OTTER"
+      ],
+      "intent_codes": [
+        "N4"
+      ],
+      "NFL": [
+        100
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRH",
+        "WINDY",
+        "TABSY",
+        "FIYFE",
+        "AGNES",
+        "GARRY",
+        "ZZTOP"
+      ],
+      "intent_codes": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "NFL": [
+        100
+      ],
+      "XFL": [
+        90,
+        110,
+        130,
+        150,
+        170,
+        190,
+        210,
+        230,
+        250,
+        270,
+        290,
+        310,
+        330,
+        350,
+        370,
+        390
+      ]
+    },
+    {
+      "route": [
+        "EGRH",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TURDI"
+      ],
+      "intent_codes": [
+        "W1"
+      ],
+      "NFL": [
+        100
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    },
+    {
+      "route": [
+        "EGRH",
+        "WINDY",
+        "TABSY",
+        "NATOR",
+        "JIMMI",
+        "STEPP",
+        "SCIFI",
+        "CAKES",
+        "TROMB"
+      ],
+      "intent_codes": [
+        "W2",
+        "W3"
+      ],
+      "NFL": [
+        100
+      ],
+      "XFL": [
+        160,
+        180,
+        200,
+        220,
+        240,
+        260,
+        280,
+        300,
+        320,
+        340,
+        360,
+        380,
+        400
+      ]
+    }
+  ],
+  "sector_exits": {
+    "('SCOTT', 'TARRA', 'SIMPS', 'FIYFE', 'CHEEZ', 'MANLY')": "CHEEZ",
+    "('SCOTT', 'TARRA', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "LEXIE",
+    "('SCOTT', 'TARRA', 'SIMPS', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "WISKY",
+    "('CAKES', 'SCIFI', 'STEPP', 'JIMMI', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "WISKY",
+    "('CAKES', 'SCIFI', 'STEPP', 'SLUFF', 'AGNES', 'GARRY', 'OTTER')": "AGNES",
+    "('CAKES', 'SCIFI', 'STEPP', 'SLUFF', 'AGNES', 'GARRY', 'ZZTOP')": "AGNES",
+    "('CAKES', 'SCIFI', 'STEPP', 'JIMMI', 'NATOR', 'INBRU', 'EGRR')": "EGRR",
+    "('CAKES', 'SCIFI', 'STEPP', 'JIMMI', 'LEXIE', 'LEGGO')": "LEXIE",
+    "('BERTY', 'SPOUT', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "LEXIE",
+    "('BERTY', 'SPOUT', 'SIMPS', 'FIYFE', 'CHEEZ', 'MANLY')": "CHEEZ",
+    "('BERTY', 'SPOUT', 'SIMPS', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "WISKY",
+    "('BERTY', 'SPOUT', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('BERTY', 'SPOUT', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "AGNES",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "AGNES",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'INBRU', 'EGRR')": "EGRR",
+    "('MILLA', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "BOWNE",
+    "('MILLA', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "AGNES",
+    "('MILLA', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "AGNES",
+    "('MILLA', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('MILLA', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('MILLA', 'WINDY', 'TABSY', 'NATOR', 'INBRU', 'EGRR')": "EGRR",
+    "('TERMI', 'BOWNE', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "LEXIE",
+    "('TERMI', 'BOWNE', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('TERMI', 'BOWNE', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('EGRR', 'SLUFF', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('EGRR', 'SLUFF', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('EGRR', 'SLUFF', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "LEXIE",
+    "('EGRR', 'FIYFE', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "WISKY",
+    "('EGRR', 'SLUFF', 'SIMPS', 'LEXIE', 'LEGGO')": "LEXIE",
+    "('EGRE', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "BOWNE",
+    "('EGRE', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "AGNES",
+    "('EGRE', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "AGNES",
+    "('EGRE', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('EGRE', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('EGRM', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "BOWNE",
+    "('EGRM', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "AGNES",
+    "('EGRM', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "AGNES",
+    "('EGRM', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('EGRM', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI",
+    "('EGRH', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "BOWNE",
+    "('EGRH', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "AGNES",
+    "('EGRH', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "AGNES",
+    "('EGRH', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SCIFI",
+    "('EGRH', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SCIFI"
+  },
+  "sector_entries": {
+    "('SCOTT', 'TARRA', 'SIMPS', 'FIYFE', 'CHEEZ', 'MANLY')": "TARRA",
+    "('SCOTT', 'TARRA', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "TARRA",
+    "('SCOTT', 'TARRA', 'SIMPS', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "TARRA",
+    "('CAKES', 'SCIFI', 'STEPP', 'JIMMI', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "SCIFI",
+    "('CAKES', 'SCIFI', 'STEPP', 'SLUFF', 'AGNES', 'GARRY', 'OTTER')": "SCIFI",
+    "('CAKES', 'SCIFI', 'STEPP', 'SLUFF', 'AGNES', 'GARRY', 'ZZTOP')": "SCIFI",
+    "('CAKES', 'SCIFI', 'STEPP', 'JIMMI', 'NATOR', 'INBRU', 'EGRR')": "SCIFI",
+    "('CAKES', 'SCIFI', 'STEPP', 'JIMMI', 'LEXIE', 'LEGGO')": "SCIFI",
+    "('BERTY', 'SPOUT', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "SPOUT",
+    "('BERTY', 'SPOUT', 'SIMPS', 'FIYFE', 'CHEEZ', 'MANLY')": "SPOUT",
+    "('BERTY', 'SPOUT', 'SIMPS', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "SPOUT",
+    "('BERTY', 'SPOUT', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "SPOUT",
+    "('BERTY', 'SPOUT', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "SPOUT",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "WISKY",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "WISKY",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "WISKY",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "WISKY",
+    "('CAMPS', 'SMUDJ', 'WISKY', 'NATOR', 'INBRU', 'EGRR')": "WISKY",
+    "('MILLA', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "TABSY",
+    "('MILLA', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "TABSY",
+    "('MILLA', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "TABSY",
+    "('MILLA', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "TABSY",
+    "('MILLA', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "TABSY",
+    "('MILLA', 'WINDY', 'TABSY', 'NATOR', 'INBRU', 'EGRR')": "TABSY",
+    "('TERMI', 'BOWNE', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "BOWNE",
+    "('TERMI', 'BOWNE', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "BOWNE",
+    "('TERMI', 'BOWNE', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "BOWNE",
+    "('EGRR', 'SLUFF', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "EGRR",
+    "('EGRR', 'SLUFF', 'SIMPS', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "EGRR",
+    "('EGRR', 'SLUFF', 'SIMPS', 'JIMMI', 'LEXIE', 'LEGGO')": "EGRR",
+    "('EGRR', 'FIYFE', 'NATOR', 'WISKY', 'SMUDJ', 'CAMPS')": "EGRR",
+    "('EGRR', 'SLUFF', 'SIMPS', 'LEXIE', 'LEGGO')": "EGRR",
+    "('EGRE', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "TABSY",
+    "('EGRE', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "TABSY",
+    "('EGRE', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "TABSY",
+    "('EGRE', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "TABSY",
+    "('EGRE', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "TABSY",
+    "('EGRM', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "TABSY",
+    "('EGRM', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "TABSY",
+    "('EGRM', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "TABSY",
+    "('EGRM', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "TABSY",
+    "('EGRM', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "TABSY",
+    "('EGRH', 'WINDY', 'TABSY', 'FIYFE', 'SLUFF', 'BOWNE', 'TERMI')": "TABSY",
+    "('EGRH', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'OTTER')": "TABSY",
+    "('EGRH', 'WINDY', 'TABSY', 'FIYFE', 'AGNES', 'GARRY', 'ZZTOP')": "TABSY",
+    "('EGRH', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TURDI')": "TABSY",
+    "('EGRH', 'WINDY', 'TABSY', 'NATOR', 'JIMMI', 'STEPP', 'SCIFI', 'CAKES', 'TROMB')": "TABSY"
+  }
+}
