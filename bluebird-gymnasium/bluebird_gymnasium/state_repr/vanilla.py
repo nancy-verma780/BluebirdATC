@@ -1,0 +1,583 @@
+from __future__ import annotations
+
+import numpy as np
+from bluebird_dt.utility import convert
+
+from bluebird_gymnasium.envs.base import BaseEnv
+from bluebird_gymnasium.state_repr import (
+    StateReprClipper as SRC,
+    StateReprScaler as SRS,
+)
+from bluebird_gymnasium.state_repr.base import BaseRepresentation
+from bluebird_gymnasium.utils.simulator_utils import get_n_forward_fixes
+
+import typing
+
+if typing.TYPE_CHECKING:
+    import numpy.typing as npt
+
+
+class VanillaRepresentationRaw(BaseRepresentation):
+    """Representation of aircraft state in the simulator.
+
+    Raw feature values
+
+    +-----+-------------------------------+-----+------+---------------------+
+    | Num |         Observation           | Min | Max  |        Unit         |
+    +-----+-------------------------------+-----+------+---------------------+
+    |   0 | Aircraft distance from the    |-inf | inf  | Nautical Miles (NM) |
+    |     | filed route centreline        |     |      |                     |
+    |   1 | Aircraft heading              | 0.0 | 2*pi | Angle (radians)     |
+    +-----+-------------------------------+-----+------+---------------------+
+
+    If num_forward_fixes > 0, then for each forward fix, the following
+    representation is concatenated to the state:
+    +-----+-------------------------------+-----+------+---------------------+
+    | Num |         Observation           | Min | Max  |        Unit         |
+    +-----+-------------------------------+-----+------+---------------------+
+    |   0 | Bearing from previous to next | 0.0 | 2*pi | Angle (radians)     |
+    |     | fix of the aircraft           |     |      |                     |
+    +-----+-------------------------------+-----+------+---------------------+
+
+    If knn > 0, then for each nearby aircraft, the following representation is
+    concatenated to the state:
+
+    +-----+----------------------------- +-----+-----+---------------------+
+    | Num |         Observation          | Min | Max |        Unit         |
+    +-----+------------------------------+-----+-----+---------------------+
+    |   0 | Distance between aircraft    | 0.0 | inf | Nautical Miles (NM) |
+    |     | and neighbour                |     |     |                     |
+    |   1 | Relative angular (non-reflex)| -pi | +pi | Angle (radians)     |
+    |     | difference between aircraft  |     |     |                     |
+    |     | heading and the heading of   |     |     |                     |
+    |     | the neighbour aircraft       |     |     |                     |
+    |     | direction of turn (sign)     |     |     |                     |
+    |   2 | Category of the distance     | -1.0| +1.0| N/A. discrete       |
+    |     | between aircraft and its     |     |     | category            |
+    |     | neighbour: either reducing,  |     |     |                     |
+    |     | same, or growing             |     |     |                     |
+    +-----+------------------------------+-----+-----+---------------------+
+
+    Args:
+        knn: the number of nearest aircraft to consider when representing
+            state for an aircraft. Defaults to 0.
+        num_forward_fixes: the number of forward fixes to encode in the state
+            representation of the aircraft. Defaults to 1.
+        use_filed_route: specifies whether to get the forward fixes from the
+            aircraft's filed (`True`) or current (`False`) route.
+            Defaults to `True`.
+        num_actions: the number of actions for an aircraft. Defaults to
+            `None` if it is not used in the aircraft's state representation.
+
+    Note for users when training agents based on neural network policies:
+    while this representation could be proccessed directly by a neural network,
+    only consider using it only when additional pre-processing has been
+    done before it is fed to a network as input. This is because the scales
+    and the range of values for each feature is signficantly different.
+    An example of an additional processing is the use of normalization (and
+    clipping) strategies to standardize the input based on running mean and
+    standard deviation. This dynamically adjusts the scaling metrics unlike
+    the features in the next class below that is scaled and clipped using
+    handpicked metrics.
+    """
+
+    def __init__(
+        self,
+        knn: int = 0,
+        num_forward_fixes: int = 1,
+        use_filed_route: bool = True,
+        num_actions: int | None = None,
+    ):
+        super(VanillaRepresentationRaw, self).__init__(
+            knn, num_forward_fixes, use_filed_route, num_actions
+        )
+
+        ####### base features range
+        base_feats_low = [-np.inf, 0.0]
+        base_feats_high = [np.inf, 2 * np.pi]
+        self.num_features_base = len(base_feats_low)
+
+        ####### fixes features range
+        if num_forward_fixes > 0:
+            fixes_feats_low = [
+                0.0,
+            ]
+            fixes_feats_high = [
+                2 * np.pi,
+            ]
+            self.num_features_per_fix = len(fixes_feats_low)
+
+            fixes_feats_low *= self.num_forward_fixes
+            fixes_feats_high *= self.num_forward_fixes
+        else:
+            fixes_feats_low = []
+            fixes_feats_high = []
+
+        ####### neighbours features range
+        if knn > 0:
+            neighbours_feats_low = [0.0, -np.pi, -1.0]
+            neighbours_feats_high = [np.inf, np.pi, 1.0]
+            self.num_features_per_neighbour = len(neighbours_feats_low)
+
+            neighbours_feats_low *= self.knn
+            neighbours_feats_high *= self.knn
+        else:
+            neighbours_feats_low = []
+            neighbours_feats_high = []
+
+        self.low = base_feats_low + fixes_feats_low + neighbours_feats_low
+        self.high = base_feats_high + fixes_feats_high + neighbours_feats_high
+        self.low = np.asarray(self.low, dtype=np.float32)
+        self.high = np.asarray(self.high, dtype=np.float32)
+
+    def repr(self, gym_env: BaseEnv, callsign: str) -> np.ndarray:
+        """Generate a vectorised representation of an aircraft's state.
+
+        Args:
+            gym_env: defines the gymnasium environment.
+            callsign: the identifier of the aircraft.
+
+        Returns:
+            numpy array which represents the aircraft's current state as
+            a vector.
+        """
+
+        simulator_env = gym_env.get_simulator_env()
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        airspace_sector = gym_env.get_active_airspace_sector()
+        aircraft = simulator_env.aircraft[callsign]
+
+        ####### utils: get useful information for computing base features
+        # centreline distance
+        ac_centre_dist, turn_dir, _ = tracked_data[callsign].centreline_info_fr
+        ac_centre_dist *= turn_dir
+
+        ####### base features: the current aircraft state
+        base_feats = np.asarray(
+            [
+                ac_centre_dist,
+                aircraft.heading * convert.DEG_TO_RAD,
+            ],
+            dtype=np.float32,
+        )
+
+        ####### fixes features
+        fixes_feats = self.generate_forward_fixes_features(gym_env, callsign)
+
+        ####### neighbours features
+        neighbours_feats = self.generate_neighbours_features(gym_env, callsign)
+
+        feats_list = [base_feats] + fixes_feats + neighbours_feats
+        return np.concatenate(feats_list, dtype=np.float32)
+
+    def generate_forward_fixes_features(
+        self, gym_env, callsign
+    ) -> list[npt.NDArray[np.float32]]:
+        """Generate features for N forward fixes.
+
+        The forward fixes are derived using the aircraft's filed route
+        if `.use_filed_route` is `True`. Otherwise, the current route is used.
+
+        Args:
+            gym_env: defines the gymnasium environment.
+            callsign: the identifier of the aircraft.
+
+        Returns:
+            list of representations for each fix or an empty list if
+            `.num_forward_fixes` is 0.
+        """
+
+        if self.num_forward_fixes == 0:
+            return []
+
+        simulator_env = gym_env.get_simulator_env()
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        airspace_sector = gym_env.get_active_airspace_sector()
+        aircraft = simulator_env.aircraft[callsign]
+
+        ####### utils: get useful information for computing fixes features
+        # forward fixes position: in *filed route* (fr)
+        route = aircraft.flight_plan.route.filed
+        prev_fix = tracked_data[callsign].previous_fix_fr
+        prev_fix_pos = simulator_env.airspace.fixes.places[prev_fix]
+
+        _next_fix = tracked_data[callsign].next_fix_fr
+        fixes = get_n_forward_fixes(
+            route, start_from=_next_fix, n=self.num_forward_fixes
+        )
+        next_fixes_pos = [
+            simulator_env.airspace.fixes.places[fix]
+            for fix in fixes
+            if fix is not None
+        ]
+        num_none_fixes = self.num_forward_fixes - len(next_fixes_pos)
+
+        ac_pos = aircraft.pos2d()
+        bearings_pf_nf = []
+        prev_pos = prev_fix_pos  # initialise prev_pos
+        for fix_pos in next_fixes_pos:
+            # bearing from previous fix (pf) to next_fix (nf)
+            bearings_pf_nf.append(prev_pos.bearing_to(fix_pos))
+            prev_pos = fix_pos
+
+        ####### fixes features
+        fixes_feats = []
+        for idx in range(len(next_fixes_pos)):
+            tmp = np.asarray(
+                [
+                    bearings_pf_nf[idx] * convert.DEG_TO_RAD,
+                ],
+                dtype=np.float32,
+            )
+            fixes_feats.append(tmp)
+
+        # zero padding
+        for idx in range(num_none_fixes):
+            tmp = np.zeros(self.num_features_per_fix, dtype=np.float32)
+            fixes_feats.append(tmp)
+
+        return fixes_feats
+
+    def generate_neighbours_features(
+        self, gym_env, callsign
+    ) -> list[npt.NDArray[np.float32]]:
+        """Generate features for N neighbour aircraft.
+
+        Args:
+            gym_env: defines the gymnasium environment.
+            callsign: the identifier of the aircraft.
+
+        Returns:
+            list of representations for each neighbour or an empty list if
+            `.knn` is 0.
+        """
+
+        if self.knn == 0:
+            return []
+
+        simulator_env = gym_env.get_simulator_env()
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        airspace_sector = gym_env.get_active_airspace_sector()
+        aircraft = simulator_env.aircraft[callsign]
+
+        ####### utils: get useful information for neighbour features
+        # sorted based on aircraft distance to other aircraft
+        interactions = self._knn_repr(callsign, gym_env, True)
+
+        _num_other_ac_retrieved = len(interactions)
+        if _num_other_ac_retrieved < self.knn:
+            add_count = _num_other_ac_retrieved
+            balance_count = self.knn - _num_other_ac_retrieved
+        else:
+            add_count = self.knn
+            balance_count = 0
+
+        ####### neighbours features
+        interactions_features = []
+        for i in range(add_count):
+            dist_ac_other = interactions[i].dist_ac_other
+            angle_diff_ac_other = interactions[i].angle_diff_ac_other
+            turn_dir_ac_other = interactions[i].turn_dir_ac_other
+            dist_type_ac_other = interactions[i].dist_type_ac_other
+
+            tmp = np.asarray(
+                [
+                    dist_ac_other,
+                    (
+                        angle_diff_ac_other
+                        * convert.DEG_TO_RAD
+                        * turn_dir_ac_other
+                    ),
+                    dist_type_ac_other,
+                ],
+                dtype=np.float32,
+            )
+            interactions_features.append(tmp)
+
+        # zero padding
+        for i in range(balance_count):
+            tmp = np.zeros(self.num_features_per_neighbour, dtype=np.float32)
+            interactions_features.append(tmp)
+
+        return interactions_features
+
+
+class VanillaRepresentation(BaseRepresentation):
+    """Representation of aircraft state in the simulator.
+
+    Scaled and clipped version, using handpicked (manual) metrics.
+
+    +-----+-------------------------------+-----+------+---------------------+
+    | Num |         Observation           | Min | Max  |        Unit         |
+    +-----+-------------------------------+-----+------+---------------------+
+    |   0 | Aircraft distance from the    |-3.0 | 3.0  | Nautical Miles (NM) |
+    |     | filed route centreline        |     |      |                     |
+    |   1 | *Aircraft heading             |-pi  | pi   | Angle (radians)     |
+    +-----+-------------------------------+-----+------+---------------------+
+
+    If num_forward_fixes > 0, then for each forward fix, the following
+    representation is concatenated to the state:
+    +-----+-------------------------------+-----+------+---------------------+
+    | Num |         Observation           | Min | Max  |        Unit         |
+    +-----+-------------------------------+-----+------+---------------------+
+    |   0 | *Bearing from previous to next|-pi  | pi   | Angle (radians)     |
+    |     | fix of the aircraft           |     |      |                     |
+    +-----+-------------------------------+-----+------+---------------------+
+
+    If knn > 0, then for each nearby aircraft, the following representation is
+    concatenated to the state:
+
+    +-----+----------------------------- +-----+-----+---------------------+
+    | Num |         Observation          | Min | Max |        Unit         |
+    +-----+------------------------------+-----+-----+---------------------+
+    |   0 | Distance between aircraft    | 0.0 | 3.0 | Nautical Miles (NM) |
+    |     | and neighbour                |     |     |                     |
+    |   1 | Relative angular (non-reflex)| -pi | +pi | Angle (radians)     |
+    |     | difference between aircraft  |     |     |                     |
+    |     | heading and the heading of   |     |     |                     |
+    |     | the neighbour aircraft       |     |     |                     |
+    |     | direction of turn (sign)     |     |     |                     |
+    |   2 | Category of the distance     | -1.0| +1.0| N/A. discrete       |
+    |     | between aircraft and its     |     |     | category            |
+    |     | neighbour: either reducing,  |     |     |                     |
+    |     | same, or growing             |     |     |                     |
+    +-----+------------------------------+-----+-----+---------------------+
+
+    Note:
+    * denote that an angular feature that is naturally of range [0, 2pi]
+      but scaled to [-pi, pi].
+
+    Args:
+        knn: the number of nearest aircraft to consider when representing
+            state for an aircraft. Defaults to 0.
+        num_forward_fixes: the number of forward fixes to encode in the state
+            representation of the aircraft. Defaults to 1.
+        use_filed_route: specifies whether to get the forward fixes from the
+            aircraft's filed (`True`) or current (`False`) route.
+            Defaults to `True`.
+        num_actions: the number of actions for an aircraft. Defaults to
+            `None` if it is not used in the aircraft's state representation.
+
+    """
+
+    def __init__(
+        self,
+        knn: int = 0,
+        num_forward_fixes: int = 1,
+        use_filed_route: bool = True,
+        num_actions: int | None = None,
+    ):
+        super(VanillaRepresentation, self).__init__(
+            knn, num_forward_fixes, use_filed_route, num_actions
+        )
+
+        ####### base features range
+        base_feats_low = [-3.0, -np.pi]
+        base_feats_high = [3.0, np.pi]
+        self.num_features_base = len(base_feats_low)
+
+        ####### fixes features range
+        if num_forward_fixes > 0:
+            fixes_feats_low = [
+                -np.pi,
+            ]
+            fixes_feats_high = [
+                np.pi,
+            ]
+            self.num_features_per_fix = len(fixes_feats_low)
+
+            fixes_feats_low *= self.num_forward_fixes
+            fixes_feats_high *= self.num_forward_fixes
+        else:
+            fixes_feats_low = []
+            fixes_feats_high = []
+
+        ####### neighbours features range
+        if knn > 0:
+            neighbours_feats_low = [0.0, -np.pi, -1.0]
+            neighbours_feats_high = [3.0, np.pi, 1.0]
+            self.num_features_per_neighbour = len(neighbours_feats_low)
+
+            neighbours_feats_low *= self.knn
+            neighbours_feats_high *= self.knn
+        else:
+            neighbours_feats_low = []
+            neighbours_feats_high = []
+
+        self.low = base_feats_low + fixes_feats_low + neighbours_feats_low
+        self.high = base_feats_high + fixes_feats_high + neighbours_feats_high
+        self.low = np.asarray(self.low, dtype=np.float32)
+        self.high = np.asarray(self.high, dtype=np.float32)
+
+    def repr(self, gym_env: BaseEnv, callsign: str) -> np.ndarray:
+        """Generate a vectorised representation of an aircraft's state.
+
+        Args:
+            gym_env: defines the gymnasium environment.
+            callsign: the identifier of the aircraft.
+
+        Returns:
+            numpy array which represents the aircraft's current state as
+            a vector.
+        """
+
+        simulator_env = gym_env.get_simulator_env()
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        airspace_sector = gym_env.get_active_airspace_sector()
+        aircraft = simulator_env.aircraft[callsign]
+
+        ####### utils: get useful information for computing base features
+        # centreline distance
+        ac_centre_dist, turn_dir, _ = tracked_data[callsign].centreline_info_fr
+        ac_centre_dist = np.clip(ac_centre_dist, 0.0, SRC.CLIP_DIST)
+        ac_centre_dist *= turn_dir
+
+        ####### base features: the current aircraft state
+        base_feats = np.asarray(
+            [
+                ac_centre_dist / SRS.SCALER_CENTRELINE_DIST,  # already clipped
+                (aircraft.heading * convert.DEG_TO_RAD) - np.pi,
+            ],
+            dtype=np.float32,
+        )
+
+        ####### fixes features
+        fixes_feats = self.generate_forward_fixes_features(gym_env, callsign)
+
+        ####### neighbours features
+        neighbours_feats = self.generate_neighbours_features(gym_env, callsign)
+
+        feats_list = [base_feats] + fixes_feats + neighbours_feats
+        return np.concatenate(feats_list, dtype=np.float32)
+
+    def generate_forward_fixes_features(
+        self, gym_env, callsign
+    ) -> list[npt.NDArray[np.float32]]:
+        """Generate features for N forward fixes.
+
+        The forward fixes are derived using the aircraft's filed route
+        if `.use_filed_route` is `True`. Otherwise, the current route is used.
+
+        Args:
+            gym_env: defines the gymnasium environment.
+            callsign: the identifier of the aircraft.
+
+        Returns:
+            list of representations for each fix or an empty list if
+            `.num_forward_fixes` is 0.
+        """
+
+        if self.num_forward_fixes == 0:
+            return []
+
+        simulator_env = gym_env.get_simulator_env()
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        airspace_sector = gym_env.get_active_airspace_sector()
+        aircraft = simulator_env.aircraft[callsign]
+
+        ####### utils: get useful information for computing fixes features
+        # forward fixes position: in *filed route* (fr)
+        route = aircraft.flight_plan.route.filed
+        prev_fix = tracked_data[callsign].previous_fix_fr
+        prev_fix_pos = simulator_env.airspace.fixes.places[prev_fix]
+
+        _next_fix = tracked_data[callsign].next_fix_fr
+        fixes = get_n_forward_fixes(
+            route, start_from=_next_fix, n=self.num_forward_fixes
+        )
+        next_fixes_pos = [
+            simulator_env.airspace.fixes.places[fix]
+            for fix in fixes
+            if fix is not None
+        ]
+        num_none_fixes = self.num_forward_fixes - len(next_fixes_pos)
+
+        ac_pos = aircraft.pos2d()
+        bearings_pf_nf = []
+        prev_pos = prev_fix_pos  # initialise prev_pos
+        for fix_pos in next_fixes_pos:
+            # bearing from previous fix (pf) to next_fix (nf)
+            bearings_pf_nf.append(prev_pos.bearing_to(fix_pos))
+            prev_pos = fix_pos
+
+        ####### fixes features
+        fixes_feats = []
+        for idx in range(len(next_fixes_pos)):
+            tmp = np.asarray(
+                [
+                    (bearings_pf_nf[idx] * convert.DEG_TO_RAD) - np.pi,
+                ],
+                dtype=np.float32,
+            )
+            fixes_feats.append(tmp)
+
+        # zero padding
+        for idx in range(num_none_fixes):
+            tmp = np.zeros(self.num_features_per_fix, dtype=np.float32)
+            fixes_feats.append(tmp)
+
+        return fixes_feats
+
+    def generate_neighbours_features(
+        self, gym_env, callsign
+    ) -> list[npt.NDArray[np.float32]]:
+        """Generate features for N neighbour aircraft.
+
+        Args:
+            gym_env: defines the gymnasium environment.
+            callsign: the identifier of the aircraft.
+
+        Returns:
+            list of representations for each neighbour or an empty list if
+            `.knn` is 0.
+        """
+
+        if self.knn == 0:
+            return []
+
+        simulator_env = gym_env.get_simulator_env()
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        airspace_sector = gym_env.get_active_airspace_sector()
+        aircraft = simulator_env.aircraft[callsign]
+
+        ####### utils: get useful information for neighbour features
+        # sorted based on aircraft distance to other aircraft
+        interactions = self._knn_repr(callsign, gym_env, True)
+
+        _num_other_ac_retrieved = len(interactions)
+        if _num_other_ac_retrieved < self.knn:
+            add_count = _num_other_ac_retrieved
+            balance_count = self.knn - _num_other_ac_retrieved
+        else:
+            add_count = self.knn
+            balance_count = 0
+
+        ####### neighbours features
+        interactions_features = []
+        for i in range(add_count):
+            dist_ac_other = interactions[i].dist_ac_other
+            angle_diff_ac_other = interactions[i].angle_diff_ac_other
+            turn_dir_ac_other = interactions[i].turn_dir_ac_other
+            dist_type_ac_other = interactions[i].dist_type_ac_other
+
+            _dist = np.clip(dist_ac_other, 0.0, SRC.CLIP_DIST)
+            tmp = np.asarray(
+                [
+                    _dist / SRS.SCALER_AC_OTHER_DIST,
+                    (
+                        angle_diff_ac_other
+                        * convert.DEG_TO_RAD
+                        * turn_dir_ac_other
+                    ),
+                    dist_type_ac_other,
+                ],
+                dtype=np.float32,
+            )
+            interactions_features.append(tmp)
+
+        # zero padding
+        for i in range(balance_count):
+            tmp = np.zeros(self.num_features_per_neighbour, dtype=np.float32)
+            interactions_features.append(tmp)
+
+        return interactions_features
