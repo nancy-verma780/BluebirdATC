@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    font-family: "Source Code Pro", monospace;
+    background-image: linear-gradient(0deg, grey, lightgrey);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: "Source Code Pro", monospace;
+}
+
+:any-link {
+    color: black;
+    text-decoration: none;
+}
+
+.page {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: safe center;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.centered {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    width: 320px;
+}
+
+.twoColumn {
+    width: 640px;
+}
+
+.threeColumn {
+    width: 960px;
+}
+
+.fullWidth {
+    width: 95vw;
+}
+
+.bay {
+    height: 80vh;
+    overflow: scroll;
+    background-color: lightgray;
+}
+
+.flightStrip {
+    background-color: gray;
+}
+
+.flightStrip:hover {
+    background-color: #606060;
+}

@@ -1,0 +1,17 @@
+:root {
+    --height: 100vh;
+    --width: 100vw;
+    overflow: hidden;
+}
+
+.radar {
+    background: black;
+    height: var(--height);
+    width: var(--width);
+    touch-action: none;
+}
+
+.buttons,
+button {
+    margin: 0px !important;
+}
