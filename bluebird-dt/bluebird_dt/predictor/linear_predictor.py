@@ -3,7 +3,6 @@ from __future__ import annotations
 import functools
 from math import ceil, floor
 
-import numpy as np
 from typing_extensions import override
 
 from bluebird_dt.core import Aircraft, Fixes, FlightState, Pos4D
@@ -25,8 +24,12 @@ from bluebird_dt.utility.paths import (
     SIMPLE_PERFORMANCE_PROFILE_FILE,
     SIMPLE_PERFORMANCE_UNCERTAINTY_FILE,
 )
-from bluebird_dt.utility.performance import get_performance_table, get_performance_uncertainty_table
-from bluebird_dt.utility.sample import apply_rocd_uncertainty, apply_speed_uncertainty
+from bluebird_dt.utility.performance import (
+    cas_and_mach_from_table,
+    get_performance_table,
+    get_performance_uncertainty_table,
+    rocd_from_table,
+)
 
 
 class LinearPredictor(Predictor):
@@ -253,7 +256,8 @@ class LinearPredictor(Predictor):
     def _get_performance_profile(self, key: str | None) -> dict[str, list[float | None] | float]:
         if not self.performance_data:
             raise ValueError("Missing performance data in Linear Predictor")
-        # key will be a weight category in the simple case or an aircraft type if full performance data has been supplied
+        # key will be a weight category in the simple case or an aircraft type if full
+        # performance data has been supplied
         if key not in self.performance_data:
             if "DEFAULT" not in self.synonym_data:
                 raise ValueError(f"Missing key of {key} in Linear Predictor performance data")
@@ -264,7 +268,8 @@ class LinearPredictor(Predictor):
     def _get_performance_uncertainty(self, key: str | None) -> dict[str, dict[str, float]] | None:
         if not self.uncertainty_data:
             raise ValueError("Missing uncertainty data in Linear Predictor")
-        # key will be a weight category in the simple case or an aircraft type if full performance data has been supplied
+        # key will be a weight category in the simple case or an aircraft type if full
+        # performance data has been supplied
         if key not in self.uncertainty_data:
             if "DEFAULT" not in self.synonym_data:
                 raise ValueError(f"Missing key of {key} in Linear Predictor uncertainty data")
@@ -278,8 +283,7 @@ class LinearPredictor(Predictor):
                 raise ValueError(f"Aircraft type {aircraft_type} not found in aircraft_mapping data")
             return self.synonym_data["DEFAULT"]
 
-        key = self.synonym_data.get(aircraft_type)
-        return key
+        return self.synonym_data.get(aircraft_type)
 
     def get_aircraft_cas_mach_speeds(self, aircraft: Aircraft) -> tuple[float, float | None]:
         """
@@ -402,103 +406,17 @@ class LinearPredictor(Predictor):
             Tuple of CAS (in knots) and Mach number. Mach may be None if unavailable in the speed profile.
         """
 
-        flight_state = aircraft.flight_state
         ac_lookup_key = self._get_aircraft_lookup_key(aircraft.aircraft_type)
         performance_profile = self._get_performance_profile(ac_lookup_key)
         performance_uncertainty = self._get_performance_uncertainty(ac_lookup_key)
 
-        flight_levels = performance_profile["flight_level"]
-        min_fl = flight_levels[0]
-        max_fl = flight_levels[-1]
-
-        # behave appropriately for each edge case of fl vs available speed profile flight levels
-        # NOTE: fl_index corresponds to the lower of the two indices in the flight level array that bounds
-        # the flight level, and interp_weight to how far along the fl is between the two flight levels indexed
-        # by fl_index and fl_index + 1
-        # 1. the aircraft is at a level greater than (or equal to) the table, so use the last table value
-        if aircraft.fl >= max_fl:
-            # idx -2 -> -1 (penultimate -> last), weighted fully at -1
-            fl_index = -2
-            interp_weight = 1.0
-
-        # 2. fl that is below or equal to the table, so use the first value
-        elif aircraft.fl <= min_fl:
-            # idx 0 -> 1, weighted fully at 0
-            fl_index = 0
-            interp_weight = 0.0
-
-        # 3. within the min/max fl bounds we have data for
-        else:
-            fl_index = np.where(np.array(flight_levels) <= aircraft.fl)[0][-1]
-            interp_weight = (aircraft.fl - flight_levels[fl_index]) / (
-                flight_levels[fl_index + 1] - flight_levels[fl_index]
-            )
-
-        state_labels = {FlightState.CRUISE: "cr", FlightState.CLIMB: "cl", FlightState.DESCEND: "des"}
-        label = state_labels[flight_state]
-        cas_key = f"cas_{label}"
-        mach_key = f"mach_{label}"
-
-        cas_lo = performance_profile[cas_key][fl_index]
-        cas_hi = performance_profile[cas_key][fl_index + 1]
-        mach_values = performance_profile.get(mach_key)
-        if isinstance(mach_values, list):
-            mach_lo = mach_values[fl_index]
-            mach_hi = mach_values[fl_index + 1]
-        else:
-            mach_lo = None
-            mach_hi = None
-
-        # work out the two edge cases. NOTE: Nones only occur before valid values, like:
-        # [None, None, ..., None, float, float, ..., float]
-        # 1. we're at the lower boundary, so set cas to be the high value
-        if cas_lo is None and cas_hi is not None:
-            cas = cas_hi
-
-        # 2. else they are both None, so just choose the lowest value for which we have data
-        elif cas_lo is None and cas_hi is None:
-            cas = next(value for value in performance_profile[cas_key] if value is not None)
-            logger.debug(
-                f"No CAS data available for {aircraft.callsign} at given flight level. "
-                f"Will use value ({cas}) from closest upper flight level.",
-                stacklevel=2,
-            )
-        else:
-            nominal_cas = (1.0 - interp_weight) * cas_lo + interp_weight * cas_hi
-
-            # If percentile rank has been specified, use the uncertainty data to draw a speed score
-            # from the speed probability distribution.
-            if (
-                aircraft.percentile_rank_dict[cas_key] is None
-                or performance_uncertainty is None
-                or cas_key not in performance_uncertainty
-            ):
-                cas = nominal_cas
-            else:
-                speed_uncertainty = performance_uncertainty[cas_key]
-                percentile_rank = aircraft.percentile_rank_dict[cas_key]
-                cas = apply_speed_uncertainty(nominal_cas, speed_uncertainty, percentile_rank)
-
-        # same edge cases as for cas
-        if mach_lo is None and mach_hi is not None:
-            mach = mach_hi
-
-        elif mach_lo is None and mach_hi is None:
-            if isinstance(mach_values, list):
-                mach = next((value for value in mach_values if value is not None), None)
-                if mach is not None:
-                    logger.debug(
-                        f"No mach data available for {aircraft.callsign} at given flight level. "
-                        f"Will use value ({mach}) from closest upper flight level.",
-                        stacklevel=2,
-                    )
-            else:
-                mach = None
-
-        else:
-            mach = (1.0 - interp_weight) * mach_lo + interp_weight * mach_hi
-
-        return cas, mach
+        return cas_and_mach_from_table(
+            performance_profile,
+            performance_uncertainty,
+            aircraft.percentile_rank_dict,
+            aircraft.fl,
+            aircraft.flight_state,
+        )
 
     def vertical_speed_from_tables(self, aircraft: Aircraft) -> float:
         """
@@ -515,76 +433,17 @@ class LinearPredictor(Predictor):
             The predicted vertical speed (in feet per minute)
         """
 
-        flight_state = aircraft.flight_state
         ac_lookup_key = self._get_aircraft_lookup_key(aircraft.aircraft_type)
         performance_profile = self._get_performance_profile(ac_lookup_key)
         performance_uncertainty = self._get_performance_uncertainty(ac_lookup_key)
 
-        flight_levels = performance_profile["flight_level"]
-        min_fl = flight_levels[0]
-        max_fl = flight_levels[-1]
-
-        # behave appropriately for each edge case of fl vs available speed profile flight levels
-        # NOTE: fl_index corresponds to the lower of the two indices in the flight level array that bounds
-        # the flight level, and interp_weight to how far along the fl is between the two flight levels indexed
-        # by fl_index and fl_index + 1
-        # 1. the aircraft is at a level greater than (or equal to) the table, so use the last table value
-        if aircraft.fl >= max_fl:
-            # idx -2 -> -1 (penultimate -> last), weighted fully at -1
-            fl_index = -2
-            interp_weight = 1.0
-
-        # 2. fl that is below or equal to the table, so use the first value
-        elif aircraft.fl <= min_fl:
-            # idx 0 -> 1, weighted fully at 0
-            fl_index = 0
-            interp_weight = 0.0
-
-        # 3. within the min/max fl bounds we have data for
-        else:
-            fl_index = np.where(np.array(flight_levels) <= aircraft.fl)[0][-1]
-            interp_weight = (aircraft.fl - flight_levels[fl_index]) / (
-                flight_levels[fl_index + 1] - flight_levels[fl_index]
-            )
-
-        state_labels = {FlightState.CRUISE: "cr", FlightState.CLIMB: "cl", FlightState.DESCEND: "des"}
-        label = state_labels[flight_state]
-        rocd_key = f"rocd_{label}"
-
-        if rocd_key != "rocd_cr":
-            rocd_data = performance_profile[rocd_key]
-            rocd_uncertainty = performance_uncertainty[rocd_key]
-            percentile_rank = aircraft.percentile_rank_dict[rocd_key]
-
-            if isinstance(rocd_data, list):
-                vspeed_lo = rocd_data[fl_index]
-                vspeed_hi = rocd_data[fl_index + 1]
-
-                if vspeed_lo is None and vspeed_hi is not None:
-                    vertical_speed = vspeed_hi
-
-                elif vspeed_lo is None and vspeed_hi is None:
-                    vertical_speed = next(value for value in rocd_data if value is not None)
-                    logger.debug(
-                        f"No ROCD data available for {aircraft.callsign} at given flight level. "
-                        f"Will use value ({vertical_speed}) from closest upper flight level.",
-                        stacklevel=2,
-                    )
-
-                else:
-                    nominal_vertical_speed = (1.0 - interp_weight) * vspeed_lo + interp_weight * vspeed_hi
-                    vertical_speed = apply_rocd_uncertainty(nominal_vertical_speed, rocd_uncertainty, percentile_rank)
-            else:
-                vertical_speed = apply_rocd_uncertainty(float(rocd_data), rocd_uncertainty, percentile_rank)
-
-            # Vertical speed during descend must be negative
-            if rocd_key == "rocd_des":
-                vertical_speed = -1.0 * vertical_speed
-
-        else:
-            vertical_speed = 0
-
-        return vertical_speed
+        return rocd_from_table(
+            performance_profile,
+            performance_uncertainty,
+            aircraft.percentile_rank_dict,
+            aircraft.fl,
+            aircraft.flight_state,
+        )
 
     def update_flight_level(self, aircraft: Aircraft, time_evolve: float):
         """
