@@ -52,9 +52,8 @@ nav:
   - Home:
       - Project overview: ./#project-overview
       - Package documentation: ./#package-documentation
+      - General ATC introduction and definition of terms: ./#general-atc-introduction-and-definition-of-terms
       - Getting started: ./#getting-started
-      - Building the docs: ./#building-the-docs
-      - Running tests: ./#running-tests
       - References: ./#references
 
   - ATC Introduction and Glossary: atc-introduction-and-glossary.md

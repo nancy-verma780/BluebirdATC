@@ -5,6 +5,7 @@ plugins:
        modules: [docs.get_version]
 
 nav:
+  - Source code: ./#source-code
   - ATC concepts and terminology:
       - Overview: ./#atc-concepts-and-terminology
       - Aircraft: ./#aircraft
@@ -13,29 +14,27 @@ nav:
       - Route: ./#route
       - Airspace: ./#airspace
       - Action: ./#action
+  - Provided airspace:
+      - Overview: ./#provided-airspace
       - Sectors:
-          - Overview: ./#sectors
           - I-sector: ./#i-sector
           - Y-sector: ./#y-sector
           - X-sector: ./#x-sector
           - Xplus-sector: ./#xplus-sector
           - Springfield: ./#springfield
-      - Scenarios:
-          - Overview: ./#scenarios
-          - Two Aircraft: ./#two-aircraft
-          - Regular: ./#regular
-          - Tactical: ./#tactical
-          - Infinite: ./#infinite
-      - Design of the digital twin:
-          - Overview: ./#design-of-the-digital-twin
-          - Core classes: ./#core-classes
-          - Scenario and airspace generators: ./#scenario-and-airspace-generators
-          - Simulation and event management: ./#simulation-and-event-management
-          - Predictors: ./#predictors
-          - Utility functions: ./#utility-functions
-  - Developer Guide:
-      - Overview: ./#developer-guide
-      - Installing the software: ./#installing-the-software
-      - Unit testing: ./#unit-testing
-      - Running tests: ./#running-tests
+  - Scenarios:
+      - Overview: ./#scenarios
+      - Two Aircraft: ./#two-aircraft
+      - Regular: ./#regular
+      - Custom: ./#custom
+      - Infinite: ./#infinite
+  - Design of the digital twin:
+      - Overview: ./#design-of-the-digital-twin
+      - Core classes: ./#core-classes
+      - Scenario and airspace generators: ./#scenario-and-airspace-generators
+      - Simulation and event management: ./#simulation-and-event-management
+      - Predictors: ./#predictors
+      - Utility functions: ./#utility-functions
+  - Installing the software: ./#installing-the-software
+  - Versioning: ./#versioning
   - Source code reference: source.md
