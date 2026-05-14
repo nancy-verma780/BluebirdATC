@@ -19,8 +19,6 @@ watch:
   - ../bluebird-hmi/mkdocs.yml
 extra_css:
   - stylesheets/nav.css
-extra_javascript:
-  - javascripts/nav-state.js
 
 theme:
   name: material
