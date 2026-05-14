@@ -40,14 +40,14 @@ Run the API test suite from the package directory:
 
 ```bash
 cd bluebird-api
-uv run pytest tests/
+uv run pytest
 ```
 
 To use parallel workers:
 
 ```bash
 cd bluebird-api
-uv run pytest -n auto tests/
+uv run pytest -n auto
 ```
 
 

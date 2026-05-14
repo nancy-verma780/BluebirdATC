@@ -146,14 +146,14 @@ Run the `bluebird-dt` test suite from the package directory:
 
 ```bash
 cd bluebird-dt
-uv run pytest tests/
+uv run pytest
 ```
 
 To use parallel workers:
 
 ```bash
 cd bluebird-dt
-uv run pytest -n auto tests/
+uv run pytest -n auto
 ```
 
 ### Versioning
