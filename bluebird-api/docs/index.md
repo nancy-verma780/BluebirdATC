@@ -55,4 +55,4 @@ uv run pytest -n auto
 
 For package-level details, see the source README:
 
-[bluebird-api README](https://github.com/project-bluebird/BluebirdATC/blob/main/bluebird-api/README.md)
+[bluebird-api README](https://github.com/project-bluebird/BluebirdATC/blob/main/bluebird-api/README.md){ target="_blank" rel="noopener" }

@@ -138,7 +138,7 @@ Code to read and write data files, perform geometric calculations etc.
 
 ## Installing the software
 
-For installation instructions, see the [BluebirdATC repository README](https://github.com/project-bluebird/BluebirdATC/blob/dev/README.md)
+For installation instructions, see the [BluebirdATC repository README](https://github.com/project-bluebird/BluebirdATC/blob/main/README.md){ target="_blank" rel="noopener" }
 
 ## Running tests
 

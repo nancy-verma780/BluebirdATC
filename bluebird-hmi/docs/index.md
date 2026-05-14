@@ -61,4 +61,4 @@ npm run build
 
 For full package-level developer details, see the source README:
 
-[bluebird-hmi README](https://github.com/project-bluebird/BluebirdATC/blob/main/bluebird-hmi/README.md)
+[bluebird-hmi README](https://github.com/project-bluebird/BluebirdATC/blob/main/bluebird-hmi/README.md){ target="_blank" rel="noopener" }
