@@ -1,5 +1,5 @@
 import SyncIcon from "@mui/icons-material/Sync";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import MenuList from "@mui/material/MenuList";
 import TextField from "@mui/material/TextField";
 import { IconButton, Button } from "@mui/material";

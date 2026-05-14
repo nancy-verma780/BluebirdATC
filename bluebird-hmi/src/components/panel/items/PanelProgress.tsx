@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import MenuList from "@mui/material/MenuList";
 import PanelData from "components/panel/items/PanelData";
 

@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import { StyledMenuIcon } from "components/panel/items/StyledMenuIcon";
 import { ReactElement } from "react";

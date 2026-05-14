@@ -1,5 +1,5 @@
 import { MenuList } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import ListItemText from "@mui/material/ListItemText";
 import { StyledMenuIcon } from "components/panel/items/StyledMenuIcon";
 import { ReactElement } from "react";
