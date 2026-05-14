@@ -5,6 +5,7 @@ requires = ["hatchling"]
 [project]
 authors = [{name = "Project Bluebird"}]
 description = "A simulation and AI development framework for air traffic control."
+license = "AGPL-3.0-or-later"
 name = "bluebird-dt"
 readme = "README.md"
 version = "0.1.0"
