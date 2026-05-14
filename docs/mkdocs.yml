@@ -72,7 +72,14 @@ nav:
       - Running tests: ./#running-tests
       - References: ./#references
 
-  - ATC Introduction and Glossary: atc-introduction-and-glossary.md
+  - ATC Introduction and Glossary:
+      - Overview: atc-introduction-and-glossary.md
+      - ATC Instructions: atc-introduction-and-glossary.md#atc-instructions
+      - Glossary: atc-introduction-and-glossary.md#glossary
+      - Airspace: atc-introduction-and-glossary.md#airspace
+      - Instruction: atc-introduction-and-glossary.md#instruction
+      - Aircraft: atc-introduction-and-glossary.md#aircraft
+      - Miscellaneous: atc-introduction-and-glossary.md#miscellaneous
 
   - bluebird-dt: "!include ../bluebird-dt/mkdocs.yml"
 
