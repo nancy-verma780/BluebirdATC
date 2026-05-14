@@ -5,6 +5,18 @@ repo_name: project-bluebird/BluebirdATC
 docs_dir: src
 site_dir: ../site
 dev_addr: 127.0.0.1:8010
+watch:
+  - ../bluebird-dt/docs
+  - ../bluebird-api/docs
+  - ../bluebird-gymnasium/docs
+  - ../bluebird-hmi/docs
+  - ../bluebird-dt/bluebird_dt
+  - ../bluebird-api/bluebird_api
+  - ../bluebird-gymnasium/bluebird_gymnasium
+  - ../bluebird-dt/mkdocs.yml
+  - ../bluebird-api/mkdocs.yml
+  - ../bluebird-gymnasium/mkdocs.yml
+  - ../bluebird-hmi/mkdocs.yml
 extra_css:
   - stylesheets/nav.css
 
