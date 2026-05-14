@@ -36,5 +36,6 @@ nav:
       - Predictors: ./#predictors
       - Utility functions: ./#utility-functions
   - Installing the software: ./#installing-the-software
+  - Running tests: ./#running-tests
   - Versioning: ./#versioning
   - Source code reference: source.md

@@ -140,6 +140,22 @@ Code to read and write data files, perform geometric calculations etc.
 
 For installation instructions, see the [BluebirdATC repository README](https://github.com/project-bluebird/BluebirdATC/blob/dev/README.md)
 
+## Running tests
+
+Run the `bluebird-dt` test suite from the package directory:
+
+```bash
+cd bluebird-dt
+uv run pytest tests/
+```
+
+To use parallel workers:
+
+```bash
+cd bluebird-dt
+uv run pytest -n auto tests/
+```
+
 ### Versioning
 
 Development of the BluebirdATC Digital Twin is still in early stages, with new features and bug fixes causing breaking changes.

@@ -34,6 +34,22 @@ cd bluebird-api
 uv run uvicorn bluebird_api:app --port 8000
 ```
 
+### Running tests and checks
+
+Run the API test suite from the package directory:
+
+```bash
+cd bluebird-api
+uv run pytest tests/
+```
+
+To use parallel workers:
+
+```bash
+cd bluebird-api
+uv run pytest -n auto tests/
+```
+
 
 ### Source README
 
