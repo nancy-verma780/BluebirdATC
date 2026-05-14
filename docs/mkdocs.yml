@@ -26,6 +26,7 @@ theme:
     primary: 'indigo'
     accent: 'indigo'
   features:
+    - navigation.instant
     - toc.integrate
     - content.code.copy
     - content.tabs.link
