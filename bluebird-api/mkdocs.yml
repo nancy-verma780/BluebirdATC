@@ -5,7 +5,6 @@ nav:
   - Using the pre-built API: ./#using-the-pre-built-api
   - Developer Guide:
       - Overview: ./#developer-guide
-      - Installing dependencies: ./#installing-dependencies
       - Running locally: ./#running-locally
       - Running tests and checks: ./#running-tests-and-checks
       - Source README: ./#source-readme

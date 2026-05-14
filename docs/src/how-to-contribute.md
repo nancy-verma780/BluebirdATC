@@ -2,4 +2,4 @@
 
 Please see the contributing guidelines here:
 
-[BluebirdATC contributing guide](https://github.com/project-bluebird/BluebirdATC/blob/contributing-guidelines/CONTRIBUTING.md)
+[BluebirdATC contributing guide](https://github.com/project-bluebird/BluebirdATC/blob/main/CONTRIBUTING.md){ target="_blank" rel="noopener" }

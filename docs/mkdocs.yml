@@ -5,6 +5,18 @@ repo_name: project-bluebird/BluebirdATC
 docs_dir: src
 site_dir: ../site
 dev_addr: 127.0.0.1:8010
+watch:
+  - ../bluebird-dt/docs
+  - ../bluebird-api/docs
+  - ../bluebird-gymnasium/docs
+  - ../bluebird-hmi/docs
+  - ../bluebird-dt/bluebird_dt
+  - ../bluebird-api/bluebird_api
+  - ../bluebird-gymnasium/bluebird_gymnasium
+  - ../bluebird-dt/mkdocs.yml
+  - ../bluebird-api/mkdocs.yml
+  - ../bluebird-gymnasium/mkdocs.yml
+  - ../bluebird-hmi/mkdocs.yml
 extra_css:
   - stylesheets/nav.css
 
@@ -14,6 +26,7 @@ theme:
     primary: 'indigo'
     accent: 'indigo'
   features:
+    - navigation.instant
     - toc.integrate
     - content.code.copy
     - content.tabs.link
@@ -52,12 +65,19 @@ nav:
   - Home:
       - Project overview: ./#project-overview
       - Package documentation: ./#package-documentation
+      - General ATC introduction and definition of terms: ./#general-atc-introduction-and-definition-of-terms
       - Getting started: ./#getting-started
-      - Building the docs: ./#building-the-docs
       - Running tests: ./#running-tests
       - References: ./#references
 
-  - ATC Introduction and Glossary: atc-introduction-and-glossary.md
+  - ATC Introduction and Glossary:
+      - Overview: atc-introduction-and-glossary.md
+      - ATC Instructions: atc-introduction-and-glossary.md#atc-instructions
+      - Glossary: atc-introduction-and-glossary.md#glossary
+      - Airspace: atc-introduction-and-glossary.md#airspace
+      - Instruction: atc-introduction-and-glossary.md#instruction
+      - Aircraft: atc-introduction-and-glossary.md#aircraft
+      - Miscellaneous: atc-introduction-and-glossary.md#miscellaneous
 
   - bluebird-dt: "!include ../bluebird-dt/mkdocs.yml"
 

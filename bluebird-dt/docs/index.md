@@ -138,7 +138,23 @@ Code to read and write data files, perform geometric calculations etc.
 
 ## Installing the software
 
-For installation instructions, see the [BluebirdATC repository README](https://github.com/project-bluebird/BluebirdATC/blob/dev/README.md)
+For installation instructions, see the [BluebirdATC repository README](https://github.com/project-bluebird/BluebirdATC/blob/main/README.md){ target="_blank" rel="noopener" }
+
+## Running tests
+
+Run the `bluebird-dt` test suite from the package directory:
+
+```bash
+cd bluebird-dt
+uv run pytest
+```
+
+To use parallel workers:
+
+```bash
+cd bluebird-dt
+uv run pytest -n auto
+```
 
 ### Versioning
 

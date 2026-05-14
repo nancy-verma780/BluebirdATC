@@ -46,7 +46,7 @@
 
  This allows other members of the `BluebirdATC` team to confirm that you aren't overlapping with work that's currently underway and that everyone is on the same page with the goal of the work you're going to carry out.
  
- As this digital twin is heavily domain driven for ATM, issues are also a perfect point of discussion to gather additional context about the changes you are proposing, and if they align with the domain.
+ As this digital twin is heavily domain driven for ATC, issues are also a perfect point of discussion to gather additional context about the changes you are proposing, and if they align with the domain.
 
  [This blog](https://www.igvita.com/2011/12/19/dont-push-your-pull-requests/) is a nice explanation of why putting this work in up front is so useful to everyone involved.
 

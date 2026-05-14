@@ -5,7 +5,12 @@ plugins:
        modules: [docs.get_version]
 
 nav:
-  - Introduction: ./
+  - Introduction:
+      - Overview: ./
+      - Installation: ./#installation
+      - Simple usage: ./#simple-usage
+      - Getting started: ./#getting-started
+      - Running tests: ./#running-tests
   - Reward functions: rewards.md
   - Actions: actions.md
   - State representations: state_representations.md

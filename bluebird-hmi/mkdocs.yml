@@ -1,6 +1,7 @@
 site_name: bluebird-hmi
 
 nav:
+  - Terminology: ./#terminology
   - Using the pre-built HMI: ./#using-the-pre-built-hmi
   - Developer Guide:
       - Overview: ./#developer-guide

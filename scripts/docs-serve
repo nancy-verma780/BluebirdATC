@@ -8,5 +8,17 @@ export NO_MKDOCS_2_WARNING=1
 unset VIRTUAL_ENV
 
 cd "$repo_root/docs"
-uv run python ../scripts/sync_docs_notebooks.py
-exec uv run mkdocs serve -f mkdocs.yml "$@"
+exec uv run watchmedo auto-restart \
+  --directory "$repo_root/docs" \
+  --directory "$repo_root/bluebird-dt" \
+  --directory "$repo_root/bluebird-api" \
+  --directory "$repo_root/bluebird-gymnasium" \
+  --directory "$repo_root/bluebird-hmi" \
+  --patterns "*.md;*.py;*.yml" \
+  --ignore-patterns "*/.venv/*;*/site/*;*/__pycache__/*" \
+  --ignore-directories \
+  --recursive \
+  --debounce-interval 0.5 \
+  --signal SIGTERM \
+  --no-restart-on-command-exit \
+  -- "$script_dir/docs-serve-inner" "$@"
