@@ -9,6 +9,14 @@ updates:
       - "C-dependencies"
     cooldown:
       default-days: 7
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
   - package-ecosystem: "npm"
     directory: "/bluebird-hmi"
     target-branch: "dev"
@@ -18,4 +26,10 @@ updates:
       - "C-dependencies"    
     cooldown:
       default-days: 7
-
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
