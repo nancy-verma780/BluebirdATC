@@ -131,6 +131,30 @@ def test_step(view_type: ViewType, env_cls: EnvCls):
             assert obs[callsign].shape == gym_env.observation_space.shape
 
 
+def test_custom_env_spawns_additional_aircraft():
+    """Test that the Gymnasium wrapper drives infinite aircraft spawning."""
+
+    config = CustomInfiniteEnv.get_default_env_config(ViewType.CENTRALIZED)
+    config.scenario_config.update(
+        {
+            "scenario_name": ScenarioName.sector_xplus.value,
+            "initial_spawn_rate": 1.0,
+            "max_spawn_rate": 1.0,
+            "spawn_distance_threshold": 0.0,
+            "random_seed": 1234,
+            "num_starter_aircraft": 1,
+        }
+    )
+    config.scenario_duration = 60
+
+    gym_env = CustomInfiniteEnv(config=config)
+    initial_aircraft_count = len(gym_env.get_simulator_env().aircraft)
+
+    gym_env.step(0)
+
+    assert len(gym_env.get_simulator_env().aircraft) > initial_aircraft_count
+
+
 @pytest.mark.parametrize("view_type", VIEW_TYPES)
 @pytest.mark.parametrize("env_cls", ENV_CLASSES)
 def test_pos_information(view_type: ViewType, env_cls: EnvCls):
