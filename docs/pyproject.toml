@@ -16,6 +16,6 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-bluebird-dt = { path = "../bluebird-dt", editable = true }
-bluebird-api = { path = "../bluebird-api", editable = true }
-bluebird-gymnasium = { path = "../bluebird-gymnasium", editable = true }
+bluebird-dt = { workspace = true }
+bluebird-api = { workspace = true }
+bluebird-gymnasium = { workspace = true }

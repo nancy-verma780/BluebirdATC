@@ -1,11 +1,13 @@
 [tool.uv.workspace]
 members = [
-  "bluebird-dt",
   "bluebird-api",
+  "bluebird-dt",
+  "bluebird-gymnasium",
 ]
 
 [tool.pytest.ini_options]
 testpaths = [
-  "bluebird-dt/tests",
   "bluebird-api/tests",
+  "bluebird-dt/tests",
+  "bluebird-gymnasium/tests",
 ]
