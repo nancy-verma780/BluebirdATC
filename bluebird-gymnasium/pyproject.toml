@@ -1,6 +1,7 @@
 [project]
 name = "bluebird-gymnasium"
 version = "0.0.0"
+license = "AGPL-3.0-or-later"
 description = "An gymnasium environment for air traffic control."
 authors = [{name="Project Bluebird"}]
 readme = "README.md"

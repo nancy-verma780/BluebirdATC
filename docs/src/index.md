@@ -45,10 +45,25 @@ The BluebirdATC repo is made up of four packages, `bluebird-dt`, `bluebird-api`,
 
 For a general introduction to ATC and the definition of useful domain-related words and phrases, please visit the [Introduction and Glossary](atc-introduction-and-glossary.md) page.
 
-## Getting started
+## Getting Started
 
 Start with the `Examples` tab in these docs for rendered notebook walkthroughs of the Digital Twin and RL training environment. The source notebooks remain in `bluebird-dt/notebooks` and `bluebird-gymnasium/examples` if you want to run or edit them locally.
 
+## Running Tests
+
+From the repository root, you can run the workspace Python test suite for `bluebird-dt` and `bluebird-api` with:
+
+```bash
+uv run pytest
+```
+
+To run the same workspace tests in parallel:
+
+```bash
+uv run pytest -n auto
+```
+
+For package-specific test commands and frontend checks, see the documentation pages for each subproject.
 
 ## References
 
