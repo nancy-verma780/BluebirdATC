@@ -23,7 +23,7 @@ updates:
     schedule:
       interval: "weekly"
     labels:
-      - "C-dependencies"    
+      - "C-dependencies"
     cooldown:
       default-days: 7
     groups:
