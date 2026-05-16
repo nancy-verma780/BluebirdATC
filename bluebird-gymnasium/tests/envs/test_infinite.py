@@ -5,18 +5,46 @@ import typing
 from datetime import timezone
 
 from bluebird_gymnasium.envs import ViewType
-from bluebird_gymnasium.envs.infinite import InfiniteEnv, CustomInfiniteEnv
+from bluebird_gymnasium.envs.infinite import (
+    CustomInfiniteEnv,
+    InfiniteEnv,
+    ScenarioName,
+)
 from bluebird_gymnasium.utils.types import PositionStatus, ACPositionInfo
 
-EnvCls: typing.TypeAlias = typing.Union[InfiniteEnv, CustomInfiniteEnv]
+EnvCls: typing.TypeAlias = type[InfiniteEnv] | type[CustomInfiniteEnv]
 
 VIEW_TYPES = list(ViewType)
 ENV_CLASSES = [InfiniteEnv, CustomInfiniteEnv]
+SCENARIO_NAMES = list(ScenarioName)
 
-def _get_env_instance(view_type: ViewType, env_cls: EnvCls):
+
+def _get_env_instance(
+    view_type: ViewType,
+    env_cls: EnvCls,
+    scenario_name: ScenarioName = ScenarioName.sector_xplus,
+):
     config = env_cls.get_default_env_config(view_type)
+    config.scenario_config["scenario_name"] = scenario_name.value
     gym_env = env_cls(config=config)
     return gym_env
+
+
+@pytest.mark.parametrize("scenario_name", SCENARIO_NAMES)
+@pytest.mark.parametrize("env_cls", ENV_CLASSES)
+def test_advertised_scenarios_initialise(
+    env_cls: EnvCls,
+    scenario_name: ScenarioName,
+):
+    """Test initialisation for every advertised infinite scenario."""
+
+    gym_env = _get_env_instance(
+        ViewType.CENTRALIZED,
+        env_cls,
+        scenario_name,
+    )
+
+    assert gym_env.get_active_airspace_sector() is not None
 
 
 @pytest.mark.parametrize("view_type", VIEW_TYPES)

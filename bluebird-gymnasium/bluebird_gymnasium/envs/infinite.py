@@ -31,7 +31,35 @@ class ScenarioName(StrEnum):
     sector_x = "X-Sector"
     sector_xplus = "Xplus-Sector"
     sector_y = "Y-Sector"
-    sector_two = "Two Sector"
+
+
+def _configure_airspace_metadata(env: BaseEnv) -> None:
+    """Set airspace-derived metadata needed before scenario reset."""
+
+    airspace, _routes = Infinite.create_airspace(
+        env.config.scenario_config["scenario_name"],
+    )
+
+    # the airspace generator stores the origin in reverse order
+    # i.e., lon, lat
+    origin = airspace.geo_helper.origin  # format: (lon, lat)
+    origin = (origin[1], origin[0])  # format: (lat, lon)
+    env.config.airspace_config["origin"] = origin
+
+    # trajectory predictor for computing an estimated
+    # future (rollout) trajectories. used in safety reward functions.
+    env.rollout_predictor = LinearPredictor(
+        dt=12,
+        fix_proximity_threshold=2.0,
+        fixes=airspace.fixes,
+        use_turn_model=False,
+    )
+
+    airspace_sectors = list(airspace.sectors.keys())
+    if len(airspace_sectors) == 1:
+        env.active_airspace_sector = airspace_sectors[0]
+    else:
+        raise ValueError("Could not initialise Sector")
 
 
 class InfiniteEnv(BaseEnv):
@@ -68,37 +96,11 @@ class InfiniteEnv(BaseEnv):
         else:
             self.exit_window_width = exit_window_width
 
-        ####### airspace
-        # the airspace generator expects the origin in reverse order
-        # i.e., lon, lat
-        sim = Infinite.setup(
-            scenario_name=self.config.scenario_config["scenario_name"],
-        )
-        airspace = sim.manager.environment.airspace
-        origin = airspace.geo_helper.origin  # format: (lon, lat)
-        origin = (origin[1], origin[0])  # format: (lat, lon)
-        self.config.airspace_config["origin"] = origin
-        del sim
-
         ####### scenario manager
         self.scenario_manager = None  # set in `_generate_scenario`
 
-        ####### trajectory predictor (world model)
-        # trajectory predictor for computing an estimated
-        # future (rollout) trajectories. used in safety reward functions.
-        self.rollout_predictor = LinearPredictor(
-            dt=12,
-            fix_proximity_threshold=2.0,
-            fixes=airspace.fixes,
-            use_turn_model=False,
-        )
-
-        ####### active airspace sector
-        airspace_sectors = list(airspace.sectors.keys())
-        if len(airspace_sectors) == 1:
-            self.active_airspace_sector = airspace_sectors[0]
-        else:
-            raise ValueError("Could not initialise Sector")
+        ####### airspace metadata
+        _configure_airspace_metadata(self)
 
         ####### reset env
         self.reset()
@@ -280,37 +282,11 @@ class CustomInfiniteEnv(BaseEnv):
         else:
             self.exit_window_width = exit_window_width
 
-        ####### airspace
-        # the airspace generator expects the origin in reverse order
-        # i.e., lon, lat
-        sim = Infinite.setup(
-            scenario_name=self.config.scenario_config["scenario_name"],
-        )
-        airspace = sim.manager.environment.airspace
-        origin = airspace.geo_helper.origin  # format: (lon, lat)
-        origin = (origin[1], origin[0])  # format: (lat, lon)
-        self.config.airspace_config["origin"] = origin
-        del sim
-
         ####### scenario manager
         self.scenario_manager = None  # set in `_generate_scenario`
 
-        ####### trajectory predictor (world model)
-        # trajectory predictor for computing an estimated
-        # future (rollout) trajectories. used in safety reward functions.
-        self.rollout_predictor = LinearPredictor(
-            dt=12,
-            fix_proximity_threshold=2.0,
-            fixes=airspace.fixes,
-            use_turn_model=False,
-        )
-
-        ####### active airspace sector
-        airspace_sectors = list(airspace.sectors.keys())
-        if len(airspace_sectors) == 1:
-            self.active_airspace_sector = airspace_sectors[0]
-        else:
-            raise ValueError("Could not initialise Sector")
+        ####### airspace metadata
+        _configure_airspace_metadata(self)
 
         ####### reset env
         self.reset()
