@@ -199,7 +199,6 @@ class SpringfieldEnv(BaseEnv):
                     "BERTY",
                     "GARRY",
                     "SPOUT",
-                    "BALDI",
                     "SIMPS",
                     "FIYFE",
                     "JIMMI",
