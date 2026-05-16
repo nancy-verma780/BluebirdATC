@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Submit a feature requests
+about: Submit a feature request
 labels: ["C-feature-request", "needs-triage"]
 ---
 
