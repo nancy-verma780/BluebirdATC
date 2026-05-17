@@ -3,6 +3,7 @@ members = [
   "bluebird-api",
   "bluebird-dt",
   "bluebird-gymnasium",
+  "docs",
 ]
 
 [tool.pytest.ini_options]
