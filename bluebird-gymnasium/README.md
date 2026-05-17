@@ -86,17 +86,15 @@ cd BluebirdATC/bluebird-gymnasium/
 pytest tests/ -p no:warnings
 ```
 
-### Generate Documentation
+### Documentation
 
-The documentation is generated using [Sphinx](https://www.sphinx-doc.org/en/master/) and can be found in the `docs/_build/html/` directory. The documentation should be updated whenever new modules or methods are added to the package. To re-generate the documentation, use the command below.
+The online documentation for the `bluebird_gymnasium` package can be found by running the command:
 
 ```bash
-cd BluebirdATC/bluebird-gymnasium/docs/
-sphinx-apidoc -f -o docs ./
-cd docs
-make clean
-make html
+../scripts/docs-serve
 ```
+
+from this directory, then navigating a web browser to `http://localhost:8010`.
 
 ### Bug Reporting
 
@@ -118,4 +116,3 @@ while not done:
     action = env.action_space.sample()
     obs, reward, done, truncated, info = env.step(action)
 ```
-

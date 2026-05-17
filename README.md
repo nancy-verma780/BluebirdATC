@@ -22,6 +22,9 @@ We recommend the Jupyter notebooks in the `examples/` directories of `bluebird-d
 uv run jupyter notebook
 ```
 
+## (AI)r traffic controller challenge
+Information relating to the (AI)r traffic controller challenge can be found in the `competition` folder. See the `Competition-Intro.ipynb` notebook to get started with the competition specific setup.
+
 ## Contributing
 
 Please see the guidelines [here](CONTRIBUTING.md) if you would like to contribute to BluebirdATC.

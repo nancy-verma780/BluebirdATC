@@ -3,8 +3,6 @@ from __future__ import annotations
 import datetime
 import typing
 
-from enum import StrEnum
-
 # simulator package
 from bluebird_dt.scenario_manager.infinite import Infinite
 from bluebird_dt.predictor import LinearPredictor
@@ -21,6 +19,7 @@ from bluebird_gymnasium.envs.base import BaseEnv
 from bluebird_gymnasium.utils.constants import (
     DEFAULT_RENDER_DIR,
 )
+from bluebird_gymnasium.utils.types import StrEnum
 
 if typing.TYPE_CHECKING:
     from bluebird_dt.simulator import Simulator
