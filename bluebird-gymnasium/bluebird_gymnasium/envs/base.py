@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import contextlib
 import copy
 import os
+import random
 import typing
 
 import numpy
@@ -121,6 +123,12 @@ class BaseEnv(gym.Env):
     metadata = {
         "render_modes": ["human", "rgb_array", "file"],
     }
+
+    # subclasses can opt in to using reset seeds during scenario generation
+    uses_reset_seed_for_scenario_generation = False
+
+    # subclasses can opt in to seeding legacy module-level RNGs
+    seeds_legacy_scenario_rngs = False
 
     def __init__(
         self,
@@ -484,6 +492,7 @@ class BaseEnv(gym.Env):
         self.manager = None
         self.simulator = None
         self.simulator_env = None
+        self._reset_seed = None
 
         # used when `.render_mode` is set to 'human'
         self.screen = None
@@ -492,6 +501,41 @@ class BaseEnv(gym.Env):
         """Generate a scenario in the simulator."""
 
         raise NotImplementedError
+
+    @contextlib.contextmanager
+    def _use_reset_seed_for_scenario_generation(self, seed: int | None):
+        """Apply the reset seed while generating a scenario.
+
+        Args:
+            seed: seed passed to `.reset(...)`.
+        """
+
+        # set seed for scenario managers with explicit seed support
+        self._reset_seed = (
+            seed if self.uses_reset_seed_for_scenario_generation else None
+        )
+
+        # set seed for scenario managers using legacy module-level RNGs
+        legacy_seed = (
+            self._reset_seed if self.seeds_legacy_scenario_rngs else None
+        )
+
+        random_state, numpy_random_state = None, None
+        if legacy_seed is not None:
+            random_state = random.getstate()
+            numpy_random_state = np.random.get_state()
+
+            random.seed(legacy_seed)
+            np.random.seed(legacy_seed % (2**32))
+
+        yield
+
+        # restore global RNG state and clear the reset seed
+        if random_state is not None and numpy_random_state is not None:
+            random.setstate(random_state)
+            np.random.set_state(numpy_random_state)
+
+        self._reset_seed = None
 
     def _evolve_simulation(self, evolve_period: int | float) -> None:
         """Step forward in the simulation."""
@@ -1398,7 +1442,8 @@ class BaseEnv(gym.Env):
         self.traffic_monitor.reset()
 
         # generate the scenario and instantiate simulator
-        self.simulator = self._generate_scenario()
+        with self._use_reset_seed_for_scenario_generation(seed):
+            self.simulator = self._generate_scenario()
         self.manager = self.simulator.manager
         self.simulator_env = self.manager.environment
 

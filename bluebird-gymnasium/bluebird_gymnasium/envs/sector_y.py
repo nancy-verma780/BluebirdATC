@@ -42,6 +42,9 @@ class SectorYEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
+    uses_reset_seed_for_scenario_generation = True
+    seeds_legacy_scenario_rngs = True
+
     def __init__(
         self,
         render_mode: str | None = None,

@@ -73,6 +73,8 @@ class InfiniteEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
+    uses_reset_seed_for_scenario_generation = True
+
     def __init__(
         self,
         render_mode: str | None = None,
@@ -122,6 +124,7 @@ class InfiniteEnv(BaseEnv):
         # set up simulator manager
         sim = Infinite.setup(
             scenario_name=self.config.scenario_config["scenario_name"],
+            random_seed=self._reset_seed,
             autosave=False,
             save_log_to_file=False,
             log_filename=log_filename,
@@ -259,6 +262,8 @@ class CustomInfiniteEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
+    uses_reset_seed_for_scenario_generation = True
+
     def __init__(
         self,
         render_mode: str | None = None,
@@ -308,7 +313,11 @@ class CustomInfiniteEnv(BaseEnv):
         # set up simulator manager
         sim = Infinite.setup(
             scenario_name=self.config.scenario_config["scenario_name"],
-            random_seed=self.config.scenario_config["random_seed"],
+            random_seed=(
+                self._reset_seed
+                if self._reset_seed is not None
+                else self.config.scenario_config["random_seed"]
+            ),
             num_starter_aircraft=self.config.scenario_config[
                 "num_starter_aircraft"
             ],
