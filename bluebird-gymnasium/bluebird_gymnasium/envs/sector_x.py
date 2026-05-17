@@ -7,17 +7,17 @@ import typing
 from bluebird_dt.airspace_generator.artificial_airspace import (
     ArtificialAirspace,
 )
-from bluebird_dt.utility.geo_helper import GeoHelper
 from bluebird_dt.predictor import LinearPredictor
+from bluebird_dt.utility.geo_helper import GeoHelper
 
 # simulator gymnasium wrapper
 from bluebird_gymnasium.envs import (
+    SCENARIO_CLS,
     CentralizedSampler,
     EnvConfig,
     ViewType,
-    SCENARIO_CLS,
 )
-from bluebird_gymnasium.envs.base import BaseEnv
+from bluebird_gymnasium.envs.base import BaseEnv, ScenarioGenSeedMode
 
 # constants
 from bluebird_gymnasium.utils.constants import (
@@ -43,8 +43,7 @@ class SectorXEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
-    uses_reset_seed_for_scenario_generation = True
-    seeds_legacy_scenario_rngs = True
+    scenario_seed_mode = ScenarioGenSeedMode.LEGACY_MODULE_RNGS
 
     def __init__(
         self,

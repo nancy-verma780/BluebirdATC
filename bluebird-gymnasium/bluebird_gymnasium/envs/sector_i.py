@@ -17,7 +17,7 @@ from bluebird_gymnasium.envs import (
     ViewType,
     SCENARIO_CLS,
 )
-from bluebird_gymnasium.envs.base import BaseEnv
+from bluebird_gymnasium.envs.base import BaseEnv, ScenarioGenSeedMode
 
 # constants
 from bluebird_gymnasium.utils.constants import (
@@ -43,8 +43,9 @@ class SectorIEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
-    uses_reset_seed_for_scenario_generation = True
-    seeds_legacy_scenario_rngs = True
+    scenario_seed_mode = (
+        ScenarioGenSeedMode.LEGACY_MODULE_RNGS
+    )
 
     def __init__(
         self,

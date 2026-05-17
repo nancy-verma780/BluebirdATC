@@ -3,17 +3,14 @@ from __future__ import annotations
 import datetime
 import typing
 
-# simulator package
-from bluebird_dt.scenario_manager.infinite import Infinite
 from bluebird_dt.predictor import LinearPredictor
 
+# simulator package
+from bluebird_dt.scenario_manager.infinite import Infinite
+
 # simulator gymnasium wrapper
-from bluebird_gymnasium.envs import (
-    CentralizedSampler,
-    EnvConfig,
-    ViewType,
-)
-from bluebird_gymnasium.envs.base import BaseEnv
+from bluebird_gymnasium.envs import CentralizedSampler, EnvConfig, ViewType
+from bluebird_gymnasium.envs.base import BaseEnv, ScenarioGenSeedMode
 
 # constants
 from bluebird_gymnasium.utils.constants import (
@@ -73,7 +70,7 @@ class InfiniteEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
-    uses_reset_seed_for_scenario_generation = True
+    scenario_seed_mode = ScenarioGenSeedMode.RESET_SEED_ATTRIBUTE
 
     def __init__(
         self,
@@ -253,6 +250,11 @@ class CustomInfiniteEnv(BaseEnv):
     parameters in the simulator such as the aircraft spawn rate. For the
     standard scenario, use the `InfiniteEnv` class above.
 
+    When `.reset(seed=...)` is called with a seed, that seed overrides
+    `config.scenario_config["random_seed"]` for the generated scenario.
+    Calling `.reset()` or `.reset(seed=None)` preserves the configured
+    scenario seed.
+
     Args:
         render_mode: the mode to visualize (render) the simulator. It can
             only be set to None or one of the following:
@@ -262,7 +264,7 @@ class CustomInfiniteEnv(BaseEnv):
             environment and the underlying simulator.
     """
 
-    uses_reset_seed_for_scenario_generation = True
+    scenario_seed_mode = ScenarioGenSeedMode.RESET_SEED_ATTRIBUTE
 
     def __init__(
         self,
