@@ -1,13 +1,12 @@
 from __future__ import annotations
 
 import datetime
-import os
 import string
 import typing
 
 # simulator package
 from bluebird_dt.scenario_manager.springfield import SpringfieldScenarioManager
-from bluebird_dt.predictor import SimplePredictor
+from bluebird_dt.predictor import LinearPredictor
 
 # simulator gymnasium wrapper
 from bluebird_gymnasium.envs import CentralizedSampler, EnvConfig, ViewType
@@ -17,22 +16,18 @@ from bluebird_gymnasium.envs.base import BaseEnv
 from bluebird_gymnasium.utils.constants import (
     DEFAULT_RENDER_DIR,
 )
-from bluebird_gymnasium.utils.constants import SIMULATION_LOG_DIR as REPLAY_DIR
 
 if typing.TYPE_CHECKING:
-    from bluebird_gymnasium.envs import (
-        ActionConfig,
-        AirspaceConfig,
-        Config,
-        ForwardFixesConfig,
-        RadarConfig,
-        RewardConfig,
-        ScenarioConfig,
-        SimulationLogConfig,
-        StateReprConfig,
-        ViewConfig,
-    )
     from bluebird_dt.simulator import Simulator
+
+    from bluebird_gymnasium.envs import (
+        ActionType,
+        DoneType,
+        InfoType,
+        ObsType,
+        RewardType,
+        TruncatedType,
+    )
 
 
 SPRINGFIELD_SECTOR_NAME = "SPRINGFIELD"
@@ -95,7 +90,7 @@ class SpringfieldEnv(BaseEnv):
         ####### trajectory predictor (world model)
         # trajectory predictor for computing an estimated
         # future (rollout) trajectories. used in safety reward functions.
-        self.rollout_predictor = SimplePredictor(
+        self.rollout_predictor = LinearPredictor(
             dt=12,
             fix_proximity_threshold=2.0,
             fixes=airspace.fixes,
@@ -109,7 +104,7 @@ class SpringfieldEnv(BaseEnv):
         ):
             self.active_airspace_sector = SPRINGFIELD_SECTOR_NAME
         else:
-            raise Value("Could not initialise sector")
+            raise ValueError("Could not initialise sector")
 
         ####### reset env
         self.reset()
@@ -138,6 +133,24 @@ class SpringfieldEnv(BaseEnv):
             predictor=None,  # use the default in the scenario
         )
         return sim
+
+    def step(
+        self, action: ActionType
+    ) -> tuple[ObsType, RewardType, DoneType, TruncatedType, InfoType]:
+        obs, reward, done, truncated, info = super().step(action)
+
+        # Springfield can start before any aircraft is controllable; keep an
+        # empty decentralized done dict from ending loops that call all(...).
+        if (
+            self.config.view_config["type"] == ViewType.DECENTRALIZED
+            and isinstance(done, dict)
+            and not done
+            and self.timestep < self.maxstep
+        ):
+            done = {"__all__": False}
+            truncated = {"__all__": False}
+
+        return obs, reward, done, truncated, info
 
     @classmethod
     def get_default_env_config(
@@ -213,7 +226,6 @@ class SpringfieldEnv(BaseEnv):
                     "BERTY",
                     "GARRY",
                     "SPOUT",
-                    "BALDI",
                     "SIMPS",
                     "FIYFE",
                     "JIMMI",
