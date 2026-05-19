@@ -146,8 +146,11 @@ def test_pos_information(view_type: ViewType):
 
     # forward the simulation to the time when at least one aircraft is being
     # tracked
-    while len(gym_env.get_tracked_aircraft_data()) == 0:
-        gym_env.step(action)
+    done = False
+    while not done:
+        if len(gym_env.get_tracked_aircraft_data()) > 0:
+            break
+        _, _, done, _, info = gym_env.step(action)
 
     tracked_data = gym_env.get_tracked_aircraft_data()
     if tracked_data is not None and len(tracked_data) > 0:
