@@ -184,25 +184,29 @@ def test_pos_information(view_type: ViewType, env_cls: EnvCls):
 
     # forward the simulation to the time when at least one aircraft is being
     # tracked
-    done = False
-    while not done:
-        if len(gym_env.get_tracked_aircraft_data()) > 0:
+    tracked_data = {}
+    max_steps = 100
+    for _ in range(max_steps):
+        tracked_data = gym_env.get_tracked_aircraft_data()
+        if tracked_data:
             break
-        _, _, done, _, info = gym_env.step(action)
 
-    tracked_data = gym_env.get_tracked_aircraft_data()
-    if len(tracked_data) > 0:
-        callsign = list(tracked_data.keys())[0]
-        ret: ACPositionInfo = gym_env.check_pos_information(
-            callsign, PositionStatus.BEFORE_ENTRY, False, False, None
-        )
+        gym_env.step(action)
 
-        # in artificial airspace, we can expect that the first aircraft
-        # at start of the scenario is yet to enter the airspace/sector.
-        assert ret.position_status == PositionStatus.BEFORE_ENTRY
-        assert ret.incomm_status is False
-        assert ret.outcomm_status is False
-        assert ret.dist_to_sector_entry > 0.0
-        assert ret.dist_away_from_sector_exit == 0.0
-        assert ret.dist_away_from_incorrect_sector_exit == 0.0
-        assert ret.incorrect_exit_position is None
+    else:
+        pytest.fail(f"No aircraft were tracked within the step limit of {max_steps}.")
+
+    callsign = next(iter(tracked_data))
+    ret: ACPositionInfo = gym_env.check_pos_information(
+        callsign, PositionStatus.BEFORE_ENTRY, False, False, None
+    )
+
+    # in artificial airspace, we can expect that the first aircraft
+    # at start of the scenario is yet to enter the airspace/sector.
+    assert ret.position_status == PositionStatus.BEFORE_ENTRY
+    assert ret.incomm_status is False
+    assert ret.outcomm_status is False
+    assert ret.dist_to_sector_entry > 0.0
+    assert ret.dist_away_from_sector_exit == 0.0
+    assert ret.dist_away_from_incorrect_sector_exit == 0.0
+    assert ret.incorrect_exit_position is None
