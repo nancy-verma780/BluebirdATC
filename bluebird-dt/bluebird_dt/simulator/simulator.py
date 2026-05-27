@@ -364,8 +364,9 @@ class Simulator:
 
         return [{"status": cr.status, "coord": cr.coord.to_json()} for cr in coord_requests]
 
-    @functools.lru_cache(maxsize=1)
-    def environment(
+    @functools.lru_cache(maxsize=128)
+       def environment(
+
         self,
         sim_time: float,  # noqa: ARG002 -- time only used to enable time-based caching
         sector_id: str | None = None,
