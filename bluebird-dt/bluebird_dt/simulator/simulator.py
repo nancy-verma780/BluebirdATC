@@ -364,12 +364,11 @@ class Simulator:
 
         return [{"status": cr.status, "coord": cr.coord.to_json()} for cr in coord_requests]
 
-    @functools.lru_cache(maxsize=128)
+    @functools.lru_cache(maxsize=10)
        def environment(
 
         self,
         sim_time: float,  # noqa: ARG002 -- time only used to enable time-based caching
-        sector_id: str | None = None,
         no_airspace: bool = False,
         last_n_observations: int = 0,
     ) -> dict[str, typing.Any]:
