@@ -508,7 +508,7 @@ class Simulator:
     def dynamic_data(
         self,
         sim_time: float,  # noqa: ARG002 -- time only used to enable time-based caching
-        sector_id: str | None = None,
+       
     ) -> dict[str, typing.Any]:
         """
         Get the volatile scenario data for a given sector.
